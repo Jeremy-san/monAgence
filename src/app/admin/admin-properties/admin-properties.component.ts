@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PropertiesService } from 'src/app/services/properties.service';
 import { Subscription } from 'rxjs';
 import * as $ from 'jquery';
+import { Property } from 'src/app/interfaces/property';
 
 @Component({
   selector: 'app-admin-properties',
@@ -13,7 +14,7 @@ export class AdminPropertiesComponent implements OnInit {
 
   propertiesForm: FormGroup;
   propertiesSubcription: Subscription;
-  properties: any[] = [];
+  properties: Property[] = [];
 
   indexToRemove;
 
@@ -25,13 +26,14 @@ export class AdminPropertiesComponent implements OnInit {
   ngOnInit(): void {
     this.initPorpertiesForm();
     this.propertiesService.propertiesSubject.subscribe(
-      (data) => {
+      (data: Property[]) => {
         this.properties = data;
       }
     );
     this.propertiesService.emitProperties();
   }
 
+  // Formulaire
   initPorpertiesForm() {
     this.propertiesForm = this.fb.group({
       title: ['', Validators.required],
@@ -45,7 +47,7 @@ export class AdminPropertiesComponent implements OnInit {
   }
 
   onSubmitPropertiesForm() {
-    const newProperty = this.propertiesForm.value;
+    const newProperty: Property = this.propertiesForm.value; // on récupère l'interface de property
     if (this.editMode) {
       this.propertiesService.updateProperty(newProperty, this.indexToUpdate);
     } else {
@@ -54,22 +56,26 @@ export class AdminPropertiesComponent implements OnInit {
     $('#propertiesFormModal').modal('hide');
   }
 
+  // réinitialiser le formulaire
   resetForm() {
     this.editMode = false;
     this.propertiesForm.reset();
   }
 
+  // Ouvre une modal demandant si on veut bien supprimer le formulaire
   onDeleteProperty(index) {
     $('#deletePropertyModal').modal('show');
     this.indexToRemove = index;
   }
 
+  // confirmation de la suppréssion
   onConfirmDeleteProperty() {
     this.propertiesService.deleteProperty(this.indexToRemove);
     $('#deletePropertyModal').modal('hide');
   }
 
-  onEditProperty(property) {
+  // ce qui permet de modifier le formulaire
+  onEditProperty(property: Property) {
     this.editMode = true;
     $('#propertiesFormModal').modal('show');
     this.propertiesForm.get('title').setValue(property.title);
