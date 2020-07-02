@@ -11,6 +11,7 @@ export class PropertiesService {
     {
       title: 'Ma super Maison',
       category: 'Maison',
+      surface: '75',
       sold: true
     },
     {
@@ -55,5 +56,19 @@ export class PropertiesService {
     //     observer.error(error);
     //   }
     // });
+  }
+
+  createPorperties(property) {
+    this.properties.push(property);
+  }
+
+  deleteProperty(index) {
+    this.properties.splice(index, 1);
+    this.emitProperties();
+  }
+
+  updateProperty(property, index) {
+    this.properties[index] = property;
+    this.emitProperties();
   }
 }
