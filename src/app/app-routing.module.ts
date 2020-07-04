@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SigninComponent } from './authentication/signin/signin.component';
+import { SinglePropertyComponent } from './components/single-property/single-property.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   {
     path: 'login', component: SigninComponent
+  },
+  {
+    path: 'property/:id', component: SinglePropertyComponent
   },
   {
     path: '', redirectTo: 'home', pathMatch: 'full'

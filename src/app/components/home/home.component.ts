@@ -35,7 +35,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.propertiesSubscription.unsubscribe();
   }
 
-  onGoToSingleProperty(index) {
 
-  }
 }

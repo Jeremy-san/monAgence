@@ -56,6 +56,22 @@ export class PropertiesService {
     });
   }
 
+  getSingleProperties(id) {
+   return new Promise(
+      (resolve, reject) => {
+        firebase.database().ref('/properties/' + id).once('value').then(
+          (data) => {
+            resolve(data.val());
+          }
+        ).catch(
+          (error) => {
+            reject(error);
+          }
+        );
+      }
+    );
+  }
+
   createPorperties(property: Property) {
     this.properties.push(property);
     this.saveProperties();
