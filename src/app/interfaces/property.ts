@@ -6,4 +6,5 @@ export interface Property {
   description?: string; // il indique qu'il n'est pas obligatoire
   price: string;
   sold: boolean;
+  photos?: any[];
 }
