@@ -14,6 +14,12 @@ const routes: Routes = [
   },
   {
     path: 'login', component: SigninComponent
+  },
+  {
+    path: '', redirectTo: 'home', pathMatch: 'full'
+  },
+  {
+    path: '**', redirectTo: 'home'
   }
 ];
 
